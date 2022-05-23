@@ -17,7 +17,7 @@ func TestSum(t *testing.T) {
 	}{
 		{1, 3, 4},
 		{2, 2, 4},
-		{3, 3, 7},
+		{3, 3, 6},
 	}
 
 	// recorrido de slice
@@ -25,6 +25,24 @@ func TestSum(t *testing.T) {
 		total := sum(item.a, item.b)
 		if total != item.n {
 			t.Errorf("dio %d se esperaba %d", total, item.n)
+		}
+	}
+}
+
+func TestMax(t *testing.T) {
+	tables := []struct {
+		a int
+		b int
+		r int
+	}{
+		{3, 2, 3},
+		{4, 2, 4},
+		{2, 4, 5},
+	}
+	for _, item := range tables {
+		max := GetMax(item.a, item.b)
+		if max != item.r {
+			t.Error("got", max, "expected", item.r)
 		}
 	}
 }
