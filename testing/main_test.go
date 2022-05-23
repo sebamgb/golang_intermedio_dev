@@ -19,6 +19,7 @@ func TestSum(t *testing.T) {
 		{2, 2, 4},
 		{3, 3, 7},
 	}
+
 	// recorrido de slice
 	for _, item := range tables {
 		total := sum(item.a, item.b)
