@@ -7,9 +7,11 @@ import (
 type person struct {
 	name string
 	age  int
+	DNI  string
 }
 type employee struct {
-	id int
+	id       int
+	position string
 }
 type fullTimeEmployee struct {
 	person

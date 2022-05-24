@@ -27,6 +27,31 @@ func TestGetEmployeeById(t *testing.T) {
 					}, nil
 				}
 			},
+			expectedEmployee: fullTimeEmployee{
+				person: person{
+					name: "Nombre",
+					age:  23,
+					DNI:  "123",
+				},
+				employee: employee{
+					id:       1,
+					position: "CEO",
+				},
+			},
 		},
 	}
+	originalGetEmployeeById := GetEmployeeByID
+	originalGetPersonByDni := GetPersonByDNI
+	for _, test := range table {
+		test.mockFunc()
+		ft, err := GetFullTimeEmloyeeById(test.id, test.dni)
+		if err != nil {
+			t.Errorf("error when getting employee")
+		}
+		if ft.age != test.expectedEmployee.age {
+			t.Errorf("got %d but expected %d", ft.age, test.expectedEmployee.age)
+		}
+	}
+	GetEmployeeByID = originalGetEmployeeById
+	GetPersonByDNI = originalGetPersonByDni
 }
