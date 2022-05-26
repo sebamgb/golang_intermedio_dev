@@ -7,5 +7,6 @@ func main() {
 	// concurrency.WaitGroup_Main()
 	// concurrency.Sem()
 	// concurrency.Pipelines_Main()
-	concurrency.Worker_pools_MAin()
+	// concurrency.Worker_pools_MAin()
+	concurrency.Multiplexacion_Main()
 }
