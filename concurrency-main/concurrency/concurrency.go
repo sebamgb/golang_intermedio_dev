@@ -105,3 +105,39 @@ func Pipelines_Main() {
 	go double(v_generator, doubles)
 	print(doubles)
 }
+
+func fibonacci(n int) int {
+	if n <= 1 {
+		return n
+	}
+	return fibonacci(n-1) + fibonacci(n-2)
+}
+
+func worker(id int, jobs <-chan int, result chan<- int) {
+	for job := range jobs {
+		fmt.Printf("worker with id %d started fib with %d\n", id, job)
+		fib := fibonacci(job)
+		fmt.Printf("worker with id %d, job %d and fib %d\n", id, job, fib)
+		result <- fib
+	}
+}
+
+func Worker_pools_MAin() {
+	tasks := []int{2, 3, 4, 5, 7, 10, 12, 40}
+	nWorkers := 3
+	jobs := make(chan int, len(tasks))
+	results := make(chan int, len(tasks))
+
+	for i := 0; i < nWorkers; i++ {
+		go worker(i, jobs, results)
+	}
+
+	for _, value := range tasks {
+		jobs <- value
+	}
+	close(jobs)
+
+	for r := 0; r < len(tasks); r++ {
+		<-results
+	}
+}
